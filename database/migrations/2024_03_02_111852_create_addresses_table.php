@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('employee_id')->constrained();
+            $table->foreignId('employee_id')->constrained()->onDelete('cascade');
             $table->string('address_line_1');
             $table->string('address_line_2')->nullable();
             $table->string('city', 50);
@@ -21,7 +21,8 @@ return new class extends Migration
             $table->string('country', 50);
             $table->integer('postal_code');
             $table->enum('type', ['permanent', 'current']);
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });
     }
 

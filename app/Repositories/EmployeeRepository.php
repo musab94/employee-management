@@ -30,8 +30,14 @@ class EmployeeRepository implements RepositoryInterface
      * @param $id
      * @return mixed
      */
-    public function getById($id) {
-        return$this->model->where('id', $id)->first();
+    public function getById($id, $eagar = false) {
+        if ($eagar) {
+            $result = $this->model->with('contactNumbers', 'addresses')->where('id', $id)->first();
+        } else {
+            $result = $this->model->where('id', $id)->first();
+        }
+
+        return $result;
     }
 
     /**
@@ -62,6 +68,6 @@ class EmployeeRepository implements RepositoryInterface
      * @param $id
      */
     public function delete($id) {
-        $this->model->delete($id);
+        $this->model->where('id', $id)->delete();
     }
 }

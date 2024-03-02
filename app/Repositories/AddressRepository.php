@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Address;
 use App\Repositories\Interfaces\RepositoryInterface;
+use Illuminate\Support\Facades\DB;
 
 class AddressRepository implements RepositoryInterface
 {
@@ -39,7 +40,7 @@ class AddressRepository implements RepositoryInterface
      */
     public function create($params)
     {
-        return $this->model->create($params);
+        return $this->model->insert($params);
     }
 
     /**
@@ -49,18 +50,21 @@ class AddressRepository implements RepositoryInterface
      */
     public function update($params, $where_clause)
     {
-        $entity = $this->model->where($where_clause)->first();
-        if (!empty($entity)) {
-            $entity->update($params);
-        }
+        DB::transaction(function() use($where_clause, $params) {
+            $count = count($params);
+            for ($i = 0; $i < $count; $i++) {
+                $this->model->where(['employee_id' => $where_clause['employee_id']])
+                    ->update($params[$i]);
+            }
+        });
 
-        return $entity;
+        return true;
     }
 
     /**
      * @param $id
      */
     public function delete($id) {
-        $this->model->delete($id);
+        $this->model->where('employee_id', $id)->delete();
     }
 }

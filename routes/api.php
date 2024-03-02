@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\V1\DepartmentController;
+use App\Http\Controllers\V1\EmployeeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,10 +43,10 @@ Route::group([
     */
 
     Route::group(['prefix' => 'employee'], function () {
-        Route::get('', [DepartmentController::class, 'index']);
-        Route::post('', [DepartmentController::class, 'store']);
-        Route::get('{id}', [DepartmentController::class, 'show']);
-        Route::patch('{id}', [DepartmentController::class, 'update']);
-        Route::delete('{id}', [DepartmentController::class, 'destroy']);
+        Route::get('', [EmployeeController::class, 'index']);
+        Route::post('', [EmployeeController::class, 'store']);
+        Route::get('{id}', [EmployeeController::class, 'show']);
+        Route::patch('{id}', [EmployeeController::class, 'update']);
+        Route::delete('{id}', [EmployeeController::class, 'destroy']);
     });
 });

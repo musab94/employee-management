@@ -60,6 +60,6 @@ class DepartmentRepository implements RepositoryInterface
      * @param $id
      */
     public function delete($id) {
-        $this->model->delete($id);
+        $this->model->where('id', $id)->delete();
     }
 }
