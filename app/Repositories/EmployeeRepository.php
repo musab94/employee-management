@@ -23,7 +23,7 @@ class EmployeeRepository implements RepositoryInterface
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function getAll() {
-        return $this->model->all();
+        return $this->model->with('contactNumbers', 'addresses')->get();
     }
 
     /**
