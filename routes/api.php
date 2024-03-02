@@ -18,7 +18,6 @@ use App\Http\Controllers\V1\EmployeeController;
 */
 
 Route::group([
-    "namespace" => "V1",
     "prefix" => "v1",
 ], function () {
     /*
@@ -27,14 +26,7 @@ Route::group([
     |--------------------------------------------------------------------------
     */
 
-    //Route::apiResource('department', DepartmentController::class);
-    Route::group(['prefix' => 'department'], function () {
-        Route::get('', [DepartmentController::class, 'index']);
-        Route::post('', [DepartmentController::class, 'store']);
-        Route::get('{id}', [DepartmentController::class, 'show']);
-        Route::patch('{id}', [DepartmentController::class, 'update']);
-        Route::delete('{id}', [DepartmentController::class, 'destroy']);
-    });
+    Route::apiResource('department', DepartmentController::class);
 
     /*
     |--------------------------------------------------------------------------
@@ -42,11 +34,5 @@ Route::group([
     |--------------------------------------------------------------------------
     */
 
-    Route::group(['prefix' => 'employee'], function () {
-        Route::get('', [EmployeeController::class, 'index']);
-        Route::post('', [EmployeeController::class, 'store']);
-        Route::get('{id}', [EmployeeController::class, 'show']);
-        Route::patch('{id}', [EmployeeController::class, 'update']);
-        Route::delete('{id}', [EmployeeController::class, 'destroy']);
-    });
+    Route::apiResource('employee', EmployeeController::class);
 });
